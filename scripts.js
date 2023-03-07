@@ -14,17 +14,6 @@ const militaryAircrafts = [
     'assets/avion-militar-5.jpg'
 ];
 
-// const pruebaArray = [['assets/avion-civil-1.jpg',
-// 'assets/avion-civil-2.jpg',
-// 'assets/avion-civil-3.jpg',
-// 'assets/avion-civil-4.jpg',
-// 'assets/avion-civil-5.jpg'],['assets/avion-militar-1.jpg',
-// 'assets/avion-militar-2.jpg',
-// 'assets/avion-militar-3.jpg',
-// 'assets/avion-militar-4.jpg',
-// 'assets/avion-militar-5.jpg']]
-
-
 
 const civilHelicopters = [
     'assets/helicoptero-civil-1.jpg',
@@ -43,67 +32,85 @@ const militaryHelicopter = [
 ];
 
 class Gallery {
-   
-    constructor(civilImages, militaryImages) {  
+
+    constructor(civilImages, militaryImages) {
         this.civilImages = civilImages;
         this.militaryImages = militaryImages;
-        this.allImagenes = [];
+        // this.allImagenes = [];
 
     }
-    
+
+    _getRandomIndex(length) {
+        const index = Math.floor(Math.random() * length)
+        return index;
+    }
+
     getRandomCivil() {
-        const randomNumber = Math.floor(Math.random() * this.civilImages.length)
-        return this.civilImages[randomNumber];
+        // const randomNumber = Math.floor(Math.random() * this.civilImages.length)
+        return this.civilImages[this._getRandomIndex(this.civilImages.length)];
     }
-    
-    getRandomMilitary() {
-        const randomNumber = Math.floor(Math.random() * this.militaryImages.length)
-        return this.militaryImages[randomNumber];
-    }
-    
-    getAll() {
 
-            this.allImagenes = this.civilImages + "," + this.militaryImages;
-            this.allImagenes = this.allImagenes.split(",")
-            
-            return this.allImagenes;
-        }       
-  
-    
+    getRandomMilitary() {
+        // const randomNumber = Math.floor(Math.random() * this.militaryImages.length)
+        return this.militaryImages[this._getRandomIndex(this.militaryImages.length)];
+    }
+
+    getAll() {
+        return this.civilImages.concat(this.militaryImages)
+
+        //OTRA MANERA DE HACERLO
+        // this.allImagenes = this.civilImages + "," + this.militaryImages;
+        // this.allImagenes = this.allImagenes.split(",")
+
+        return this.allImagenes;
+    }
+
+
 }
 
 class Painter {
-    
-    
+
+
     constructor() {
-        return this.createGallery();  
+        return this.createGallery();
     }
 
     createGallery() {
-        this.gallery = document.createElement("section");
-        document.body.appendChild(this.gallery);
+        const section = document.createElement("section");
+        // this.gallery = document.createElement("section");
+        document.body.appendChild(section);
+        this.gallery = section;
     }
 
 
     createImageTag(imageUrl) {
+        // OTRA FORMA DE HACERLO
+        // const picture = document.createElement("picture");
+        // const img = document.createElement("img");
+
+        // img.src = imageUrl;
+        // picture.appendChild(img)
+        // return picture;
+
         return `<picture><img src="${imageUrl}"/></picture>`
 
     }
 
     paintSingleImage(imageUrl) {
-        this.gallery += this.createImageTag(imageUrl);
-        return this.gallery;
+        // OTRA FORMA DE HACERLO
+        // this.gallery.appendChild(this.createImageTag(imageUrl));
+        this.gallery.innerHTML = this.createImageTag(imageUrl)
     }
 
     paintMultipleImages(arrayOfImages) {
-        for(let i=0; i<arrayOfImages.length ;i++) {
-            // console.log(arrayOfImages)
-            this.gallery += this.createImageTag(arrayOfImages[i])
-            return this.gallery;
+        for (let i = 0; i < arrayOfImages.length; i++) {
+            this.gallery.innerHTML += this.createImageTag(arrayOfImages[i])
+            //OTRA FORMA DE HACERLO
+            // this.gallery.appendChild(this.createImageTag(arrayOfImages[i]));
 
-         }
-        
-         
+        }
+
+
     }
 
 
@@ -114,35 +121,3 @@ const aircrafts = new Gallery(civilAircrafts, militaryAircrafts);
 const helicopters = new Gallery(civilHelicopters, militaryHelicopter);
 const painter = new Painter();
 
-// console.log (aircrafts.militaryImages[4])
-// console.log (helicopters.getAll());
-// painter.createGallery();
-// painter.paintSingleImage('assets/helicoptero-civil-4.jpg');
-// painter.paintSingleImage('assets/helicoptero-civil-3.jpg')
-// console.log(painter.gallery)
-// painter.paintMultipleImages(militaryAircrafts)
-// console.log(painter.paintSingleImage(aircrafts.getRandomCivil()))
-// console.log(painter.gallery)
-
-// console.log(aircrafts.getAll())
-// console.log(typeof aircrafts.getAll())
-// console.log()
-// console.log(aircrafts.getAll())
-console.log(painter.paintMultipleImages(aircrafts.getAll()))
-// console.log(painter.paintSingleImage(aircrafts.getRandomCivil()))
-
-// console.log(aircrafts.getAll())
-// let arrayVacio = [[],[]];
-// for (let i=0; i<pruebaArray.length; i++){
-//     for(let j=0; j<pruebaArray[i].length; j++) {
-//         console.log(pruebaArray[i][j]);
-//         arrayVacio [i][j] = pruebaArray[i][j];
-//     }
-    
-// }
-
-// console.log(aircrafts)
-// aircrafts.getAll()
-console.log (aircrafts.getAll())
-// console.log(helicopters.getAll())
-console.log(typeof gallery)
